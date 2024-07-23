@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+}
+
+model Site {
+  id            Int             @id @default(autoincrement())
+  name          String
+  createdAt     DateTime        @default(now())
+  active        Boolean?        @default(true)
+  LabourPayment LabourPayment[]
+  Purchase      Purchase[]
+}
+
+model Item {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Supplier {
+  id       Int        @id @default(autoincrement())
+  name     String
+  purchase Purchase[]
+}
+
+model Purchase {
+  id           Int            @id @default(autoincrement())
+  supplier     Supplier       @relation(fields: [supplierId], references: [id])
+  supplierId   Int
+  purchaseItem PurchaseItem[]
+  referenceNo  String?
+  amount       Float
+  createdAt    DateTime       @default(now())
+  site         Site           @relation(fields: [siteId], references: [id])
+  siteId       Int
+}
+
+model PurchaseItem {
+  id         Int      @id @default(autoincrement())
+  purchase   Purchase @relation(fields: [purchaseId], references: [id])
+  purchaseId Int
+  itemName   String
+}
+
+model LabourPayment {
+  id                Int                 @id @default(autoincrement())
+  site              Site                @relation(fields: [siteId], references: [id])
+  siteId            Int
+  date              DateTime            @default(now())
+  amount            Float
+  LabourPaymentItem LabourPaymentItem[]
+}
+
+model LabourPaymentItem {
+  id              Int           @id @default(autoincrement())
+  name            String
+  amount          Float
+  labourPayment   LabourPayment @relation(fields: [labourPaymentId], references: [id])
+  labourPaymentId Int
+}

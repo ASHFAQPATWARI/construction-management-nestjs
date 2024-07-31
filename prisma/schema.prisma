@@ -27,9 +27,20 @@ model Site {
   active        Boolean?        @default(true)
   LabourPayment LabourPayment[]
   Purchase      Purchase[]
+  SitePayment   SitePayment[]
 }
 
-model Item {
+model SitePayment {
+  id            String         @id @default(uuid())
+  amount        Float
+  createdAt     DateTime       @default(now())
+  paymentMethod EPaymentMethod
+  remarks       String
+  site          Site           @relation(fields: [siteId], references: [id])
+  siteId        Int
+}
+
+model Product {
   id   Int    @id @default(autoincrement())
   name String
 }
@@ -74,4 +85,11 @@ model LabourPaymentItem {
   amount          Float
   labourPayment   LabourPayment @relation(fields: [labourPaymentId], references: [id])
   labourPaymentId Int
+}
+
+enum EPaymentMethod {
+  cash
+  cheque
+  banktransfer
+  upi
 }

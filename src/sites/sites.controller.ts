@@ -21,7 +21,7 @@ import { SiteEntity } from './entities/site.entity';
 import { SitesService } from './sites.service';
 
 @Controller('sites')
-@ApiTags('articles')
+@ApiTags('sites')
 export class SitesController {
   constructor(private readonly sitesService: SitesService) {}
 

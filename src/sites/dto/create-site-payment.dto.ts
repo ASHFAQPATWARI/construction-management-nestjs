@@ -5,6 +5,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   MaxLength,
   ValidateIf,
 } from 'class-validator';
@@ -26,8 +27,9 @@ export class CreateSitePaymentDto {
   })
   paymentMethod: EPaymentMethod;
 
+  @IsOptional()
   @MaxLength(200)
-  remarks: string;
+  remarks?: string;
 
   @IsNotEmpty()
   @IsNumber()

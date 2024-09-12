@@ -35,7 +35,7 @@ model SitePayment {
   amount        Float
   createdAt     DateTime       @default(now())
   paymentMethod EPaymentMethod
-  remarks       String
+  remarks       String?
   site          Site           @relation(fields: [siteId], references: [id])
   siteId        Int
 }
@@ -71,19 +71,19 @@ model PurchaseItem {
 }
 
 model LabourPayment {
-  id                Int                 @id @default(autoincrement())
-  site              Site                @relation(fields: [siteId], references: [id])
-  siteId            Int
-  date              DateTime            @default(now())
-  amount            Float
-  LabourPaymentItem LabourPaymentItem[]
+  id                 Int                 @id @default(autoincrement())
+  site               Site                @relation(fields: [siteId], references: [id])
+  siteId             Int
+  date               DateTime            @default(now())
+  amount             Float
+  labourPaymentItems LabourPaymentItem[]
 }
 
 model LabourPaymentItem {
   id              Int           @id @default(autoincrement())
   name            String
   amount          Float
-  labourPayment   LabourPayment @relation(fields: [labourPaymentId], references: [id])
+  labourPayment   LabourPayment @relation(fields: [labourPaymentId], references: [id], onDelete: Cascade)
   labourPaymentId Int
 }
 

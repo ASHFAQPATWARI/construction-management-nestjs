@@ -7,6 +7,7 @@ import {
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SitesModule } from './sites/sites.module';
+import { LabourPaymentsModule } from './labour-payments/labour-payments.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { SitesModule } from './sites/sites.module';
       },
     }),
     SitesModule,
+    LabourPaymentsModule,
   ],
   controllers: [AppController],
   providers: [

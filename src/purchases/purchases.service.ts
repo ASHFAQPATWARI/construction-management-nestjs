@@ -17,8 +17,7 @@ export class PurchasesService {
   }
 
   async findOne(id: number) {
-    const purchase = await this.prisma.purchase.findUnique({ where: { id } });
-    if(!purchase) throw new NotFoundException('Purchase Not Found');
+    const purchase = await this.prisma.purchase.findFirstOrThrow({ where: { id } });
     return purchase;  
   }
 

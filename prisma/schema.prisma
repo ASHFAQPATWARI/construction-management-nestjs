@@ -43,6 +43,7 @@ model SitePayment {
 model Product {
   id   Int    @id @default(autoincrement())
   name String
+  PurchaseItem PurchaseItem[]
 }
 
 model Supplier {
@@ -67,7 +68,8 @@ model PurchaseItem {
   id         Int      @id @default(autoincrement())
   purchase   Purchase @relation(fields: [purchaseId], references: [id])
   purchaseId Int
-  itemName   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId   Int
 }
 
 model LabourPayment {

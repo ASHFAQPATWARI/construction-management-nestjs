@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SitesModule } from './sites/sites.module';
 import { LabourPaymentsModule } from './labour-payments/labour-payments.module';
+import { PurchasesModule } from './purchases/purchases.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { LabourPaymentsModule } from './labour-payments/labour-payments.module';
     }),
     SitesModule,
     LabourPaymentsModule,
+    PurchasesModule,
   ],
   controllers: [AppController],
   providers: [

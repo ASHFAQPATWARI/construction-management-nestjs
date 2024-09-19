@@ -37,6 +37,11 @@ export class SitesController {
     return this.sitesService.findAll();
   }
 
+  @Get('/site-payment')
+  getAllSitePayments() {
+    return this.sitesService.getAllSitePayments();
+  }
+
   @Get(':id')
   @ApiOkResponse({ type: SiteEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
@@ -60,6 +65,11 @@ export class SitesController {
   @ApiOkResponse({ type: SiteEntity })
   remove(@Param('id') id: string) {
     return this.sitesService.remove(+id);
+  }
+
+  @Delete('/site-payment/:id')
+  deleteSitePayment(@Param('id') id: string) {
+    return this.sitesService.deleteSitePayment(id);
   }
 
   @Post('payments')

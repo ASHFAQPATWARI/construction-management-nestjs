@@ -16,6 +16,10 @@ export class SitesService {
     return this.prisma.site.findMany();
   }
 
+  getAllSitePayments() {
+    return this.prisma.sitePayment.findMany();
+  }
+
   findOne(id: number) {
     return this.prisma.site.findUnique({ where: { id } });
   }
@@ -26,6 +30,10 @@ export class SitesService {
 
   remove(id: number) {
     return this.prisma.site.delete({ where: { id } });
+  }
+
+  deleteSitePayment(id: string) {
+    return this.prisma.sitePayment.delete({ where: { id } });
   }
 
   createSitePayment(createSitePaymentDto: CreateSitePaymentDto) {
